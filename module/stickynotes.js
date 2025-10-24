@@ -133,7 +133,9 @@ class DrawingWithPreview extends foundry.canvas.placeables.Drawing {
     await this._finishPlacement(event);
     const destination = canvas.grid.getSnappedPoint({x: this.document.x, y: this.document.y}, {mode: 0});
     this.document.updateSource(destination);
-    this.#events.resolve(canvas.scene.createEmbeddedDocuments("Drawing", [this.document.toObject()]));
+    this.#events.resolve(canvas.scene.createEmbeddedDocuments(
+      "Drawing", [{...this.document.toObject(), "ownership": { default: 4 }}]
+    ));
   }
 
   /* -------------------------------------------- */
